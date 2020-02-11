@@ -295,32 +295,32 @@ uint8 calcSynthResult(CCharEntity* PChar)
     for(uint8 skillID = 49; skillID < 57; ++skillID)
     {
         uint8 checkSkill = PChar->CraftContainer->getQuantity(skillID-40);
-        if(checkSkill != 0)
+        if (checkSkill != 0)
         {
             double synthDiff = getSynthDifficulty(PChar, skillID);
             hqtier = 0;
 
-            if(synthDiff <= 0)
+            if (synthDiff <= 0)
             {
                 success = 0.95;
 
-                if(synthDiff > -11)       //0-10 levels over recipe
+                if (synthDiff > -11)       //0-10 levels over recipe
                     hqtier = 1;
-                else if(synthDiff > -31)  //11-30 levels over recipe
+                else if (synthDiff > -31)  //11-30 levels over recipe
                     hqtier = 2;
-                else if(synthDiff > -51)  //31-50 levels over recipe
+                else if (synthDiff > -51)  //31-50 levels over recipe
                     hqtier = 3;
                 else                      //51+ levels over recipe
                     hqtier = 4;
 
-                if(hqtier < finalhqtier)
+                if (hqtier < finalhqtier)
                     finalhqtier = hqtier; //set var to limit possible hq if needed
             }
             else
             {
                 success = 0.95 - (synthDiff / 10);
                 canHQ = false;
-                if(success < 0.05)
+                if (success < 0.05)
                     success = 0.05;
 
                 #ifdef _DSP_SYNTH_DEBUG_MESSAGES_
@@ -332,13 +332,13 @@ uint8 calcSynthResult(CCharEntity* PChar)
             int16 modSynthSuccess = PChar->CraftContainer->getCraftType() == CRAFT_SYNTHESIS ? PChar->getMod(Mod::SYNTH_SUCCESS) : PChar->getMod(Mod::DESYNTH_SUCCESS);
             success += (double)modSynthSuccess * 0.01;
 
-            if(!canSynthesizeHQ(PChar,skillID))
+            if (!canSynthesizeHQ(PChar,skillID))
             {
                 success += 0.01; //the crafting rings that block HQ synthesis all also increase their respective craft's success rate by 1%
                 canHQ = false;   //assuming here that if a crafting ring is used matching a recipe's subsynth, overall HQ will still be blocked
             }
 
-            if(success > 0.99)
+            if (success > 0.99)
             {
                 // Clamp success rate to 0.99
                 // Even if using kitron macaron, breaks can still happen
@@ -353,7 +353,7 @@ uint8 calcSynthResult(CCharEntity* PChar)
             ShowDebug(CL_CYAN"Success: %g  Random: %g\n" CL_RESET, success, random);
             #endif
 
-            if(random >= success) // Synthesis broke
+            if (random >= success) // Synthesis broke
             {
                 // keep the skill, because of which the synthesis failed.
                 // use the slotID of the crystal cell, because it was removed at the beginning of the synthesis
@@ -364,7 +364,7 @@ uint8 calcSynthResult(CCharEntity* PChar)
         }
     }
 
-    if(result != SYNTHESIS_FAIL) // It has gone through the cycle without breaking
+    if (result != SYNTHESIS_FAIL) // It has gone through the cycle without breaking
     {
         switch(finalhqtier)
         {
@@ -381,7 +381,7 @@ uint8 calcSynthResult(CCharEntity* PChar)
         // see: https://www.bluegartr.com/threads/130586-CraftyMath-v2-Post-September-2017-Update
         chance += (double)modSynthHqRate / 512.;
 
-        if(chance > 0 && canHQ) // if there is a chance already and it can HQ, we add myth mods
+        if (chance > 0 && canHQ) // if there is a chance already and it can HQ, we add myth mods
         {
             if (map_config.craft_moonphase_matters)
                 chance *= 1.0 - (MoonPhase - 50)/150;  //new moon +33% of base rate bonus to hq chance, full moon -33%, corresponding/weakday/lightsday -33%, opposing/darksday +33%
@@ -407,7 +407,7 @@ uint8 calcSynthResult(CCharEntity* PChar)
         ShowDebug(CL_CYAN"HQ Tier: %i HQ Chance: %g Random: %g SkillID: %u\n" CL_RESET, hqtier, chance, random, skillID);
         #endif
 
-        if(random < chance && canHQ) // we try for HQ
+        if (random < chance && canHQ) // we try for HQ
         {
             random = dsprand::GetRandomNumber(0, 16);
 
@@ -512,13 +512,13 @@ int32 doSynthSkillUp(CCharEntity* PChar)
                 int32  skillAmount = 1;
                 double chance = 0;
 
-                if((baseDiff >= 1) && (baseDiff < 3))
+                if ((baseDiff >= 1) && (baseDiff < 3))
                     satier = 1;
-                else if((baseDiff >= 3) && (baseDiff < 5))
+                else if ((baseDiff >= 3) && (baseDiff < 5))
                     satier = 2;
-                else if((baseDiff >= 5) && (baseDiff < 8))
+                else if ((baseDiff >= 5) && (baseDiff < 8))
                     satier = 3;
-                else if((baseDiff >= 8) && (baseDiff < 10))
+                else if ((baseDiff >= 8) && (baseDiff < 10))
                     satier = 4;
                 else if (baseDiff >= 10)
                     satier = 5;
@@ -540,7 +540,7 @@ int32 doSynthSkillUp(CCharEntity* PChar)
                         default: chance = 0.000; break;
                     }
 
-                    if(chance < random)
+                    if (chance < random)
                         break;
 
                     skillAmount++;
@@ -557,7 +557,7 @@ int32 doSynthSkillUp(CCharEntity* PChar)
                     }
                 }
 
-                if((skillAmount + charSkill) > maxSkill)
+                if ((skillAmount + charSkill) > maxSkill)
                 {
                     skillAmount = maxSkill - charSkill;
                 }
@@ -565,7 +565,7 @@ int32 doSynthSkillUp(CCharEntity* PChar)
                 PChar->RealSkills.skill[skillID] += skillAmount;
                 PChar->pushPacket(new CMessageBasicPacket(PChar, PChar, skillID, skillAmount, 38));
 
-                if((charSkill/10) < (charSkill + skillAmount)/10)
+                if ((charSkill/10) < (charSkill + skillAmount)/10)
                 {
                     PChar->WorkingSkills.skill[skillID] += 0x20;
 
@@ -625,14 +625,14 @@ int32 doSynthFail(CCharEntity* PChar)
         ShowDebug(CL_CYAN"Lost Item: %g  Random: %g\n" CL_RESET, lostItem, random);
         #endif
 
-        if(random < lostItem)
+        if (random < lostItem)
         {
             PChar->CraftContainer->setQuantity(slotID, 0);
             lostCount++;
         }
         totalCount++;
 
-        if(invSlotID != nextSlotID)
+        if (invSlotID != nextSlotID)
         {
             CItem* PItem = PChar->getStorage(LOC_INVENTORY)->GetItem(invSlotID);
 
@@ -642,7 +642,7 @@ int32 doSynthFail(CCharEntity* PChar)
                 PItem->setReserve(PItem->getReserve() - totalCount);
                 totalCount = 0;
 
-                if(lostCount > 0)
+                if (lostCount > 0)
                 {
                     #ifdef _DSP_SYNTH_DEBUG_MESSAGES_
                     ShowDebug(CL_CYAN"Removing quantity %u from inventory slot %u\n" CL_RESET, lostCount, invSlotID);
@@ -659,11 +659,11 @@ int32 doSynthFail(CCharEntity* PChar)
             invSlotID  = nextSlotID;
         }
         nextSlotID = 0;
-        if(invSlotID == 0xFF)
+        if (invSlotID == 0xFF)
             break;
     }
 
-    if(PChar->loc.zone->GetID() != 255 && PChar->loc.zone->GetID() != 0)
+    if (PChar->loc.zone->GetID() != 255 && PChar->loc.zone->GetID() != 0)
         PChar->loc.zone->PushPacket(PChar, CHAR_INRANGE, new CSynthResultMessagePacket(PChar, SYNTH_FAIL));
 
     PChar->pushPacket(new CSynthMessagePacket(PChar, SYNTH_FAIL, 29695));
@@ -782,7 +782,7 @@ int32 startSynth(CCharEntity* PChar)
     PChar->updatemask |= UPDATE_HP;
     PChar->pushPacket(new CCharUpdatePacket(PChar));
 
-    if(PChar->loc.zone->GetID() != 255 && PChar->loc.zone->GetID() != 0)
+    if (PChar->loc.zone->GetID() != 255 && PChar->loc.zone->GetID() != 0)
     {
         PChar->loc.zone->PushPacket(PChar, CHAR_INRANGE_SELF, new CSynthAnimationPacket(PChar,effect,result));
     }
@@ -898,7 +898,7 @@ int32 doSynthResult(CCharEntity* PChar)
         }
 
         PChar->pushPacket(new CInventoryFinishPacket());
-        if(PChar->loc.zone->GetID() != 255 && PChar->loc.zone->GetID() != 0)
+        if (PChar->loc.zone->GetID() != 255 && PChar->loc.zone->GetID() != 0)
         {
             PChar->loc.zone->PushPacket(PChar, CHAR_INRANGE, new CSynthResultMessagePacket(PChar, SYNTH_SUCCESS, itemID, quantity));
             PChar->pushPacket(new CSynthMessagePacket(PChar, SYNTH_SUCCESS, itemID, quantity));
