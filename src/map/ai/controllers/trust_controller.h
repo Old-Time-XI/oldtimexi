@@ -44,6 +44,7 @@ protected:
 
     virtual void Tick(time_point) override;
     virtual void Despawn() override;
+
     virtual bool Cast(uint16 targid, SpellID spellid) override { return false; }
     virtual bool ChangeTarget(uint16 targid) override { return false; }
     virtual bool WeaponSkill(uint16 targid, uint16 wsid) override { return false; }

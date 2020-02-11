@@ -55,7 +55,7 @@ void CTrustController::Despawn()
         POwner->PMaster = nullptr;
         POwner->PAI->Internal_Despawn();
     }
-    //CController::Despawn();
+    // CController::Despawn();
 }
 
 void CTrustController::Tick(time_point tick)
