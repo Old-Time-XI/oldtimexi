@@ -1,8 +1,6 @@
 -----------------------------------------
 -- Trust: Kupipi
 -----------------------------------------
-require("scripts/globals/status")
------------------------------------------
 
 function onMagicCastingCheck(caster,target,spell)
     return 0
