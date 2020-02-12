@@ -216,7 +216,6 @@ public:
     CTrustEntity*           PTrust;                         // Trust statistics
 
     std::vector<CTrustEntity*> PTrusts; // Active trusts
-    CBattleEntity*	PClaimedMob;
 
 
     // These missions do not need a list of completed, because client automatically
