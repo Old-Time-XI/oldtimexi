@@ -3086,7 +3086,7 @@ INSERT INTO `mob_skills` VALUES (3256,2153,'animationfungus',1,18.0,2000,1000,4,
 -- INSERT INTO `mob_skills` VALUES (3262,3006,'goblin_rush',0,7.0,2000,1500,4,0,0,0,0,0,0);
 -- INSERT INTO `mob_skills` VALUES (3263,3007,'bear_killer',0,7.0,2000,1500,4,0,0,0,0,0,0);
 -- INSERT INTO `mob_skills` VALUES (3264,3008,'salvation_scythe',0,7.0,2000,1500,4,0,0,0,0,0,0);
--- INSERT INTO `mob_skills` VALUES (3265,3009,'elemental_sforzo',0,7.0,2000,0,1,2,0,0,0,0,0);
+INSERT INTO `mob_skills` VALUES (3265,432,'elemental_sforzo',0,18.0,2000,0,1,0,30,0,0,0,0);
 -- INSERT INTO `mob_skills` VALUES (3266,3010,'liement',0,7.0,2000,1500,4,0,0,0,0,0,0);
 -- INSERT INTO `mob_skills` VALUES (3267,3011,'.',0,7.0,2000,1500,4,0,0,0,0,0,0);
 -- INSERT INTO `mob_skills` VALUES (3268,3012,'.',0,7.0,2000,1500,4,0,0,0,0,0,0);
@@ -3300,7 +3300,7 @@ INSERT INTO `mob_skills` VALUES (3416,291,'charged_whisker',1,12.5,2000,1500,4,0
 -- INSERT INTO `mob_skills` VALUES (3476,3220,'venom_storm',0,7.0,2000,1500,4,0,0,0,0,0,0);
 -- INSERT INTO `mob_skills` VALUES (3477,3221,'venom_sting',0,7.0,2000,1500,4,0,0,0,0,0,0);
 -- INSERT INTO `mob_skills` VALUES (3478,3222,'venom_breath',0,7.0,2000,1500,4,0,0,0,0,0,0);
--- INSERT INTO `mob_skills` VALUES (3479,3223,'elemental_sforzo',0,7.0,2000,0,1,2,0,0,0,0,0);
+INSERT INTO `mob_skills` VALUES (3479,432,'elemental_sforzo',0,18.0,2000,0,1,0,30,0,0,0,0); -- Animation needs retail cap, generic mob "I did a 2hr" animation for now.
 -- INSERT INTO `mob_skills` VALUES (3480,3224,'mikage',0,7.0,2000,1500,4,0,0,0,0,0,0);
 -- INSERT INTO `mob_skills` VALUES (3481,3225,'azure_lore',0,7.0,2000,1500,4,0,0,0,0,0,0);
 -- INSERT INTO `mob_skills` VALUES (3482,3226,'bolster',0,7.0,2000,1500,4,0,0,0,0,0,0);
