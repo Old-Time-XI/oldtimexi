@@ -1539,7 +1539,11 @@ bool CBattleEntity::OnAttack(CAttackState& state, action_t& action)
 
                     if (PTarget->objtype == TYPE_MOB)
                     {
-                        luautils::OnCriticalHit(PTarget);
+                        // Listener (hook)
+                        PTarget->PAI->EventHandler.triggerListener("CRITICAL_TAKE", PTarget, this);
+
+                        // Binding
+                        luautils::OnCriticalHit(PTarget, this);
                     }
                 }
                 // Not critical hit.

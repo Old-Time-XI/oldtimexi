@@ -2750,15 +2750,13 @@ namespace luautils
         return 0;
     }
 
-    int32 OnCriticalHit(CBattleEntity* PMob)
+    int32 OnCriticalHit(CBattleEntity* PMob, CBattleEntity* PAttacker)
     {
         DSP_DEBUG_BREAK_IF(PMob == nullptr || PMob->objtype != TYPE_MOB)
 
         CLuaBaseEntity LuaMobEntity(PMob);
-        CBattleEntity* PAttacker = static_cast<CBattleEntity*>(PMob->GetBattleTarget());
         CLuaBaseEntity LuaKillerEntity(PAttacker);
 
-        PMob->PAI->EventHandler.triggerListener("CRITICAL_TAKE", PMob, PAttacker);
         lua_prepscript("scripts/zones/%s/mobs/%s.lua", PMob->loc.zone->GetName(), PMob->GetName());
 
         if (prepFile(File, "onCriticalHit"))
@@ -3192,9 +3190,9 @@ namespace luautils
 
         if (criticalHit == true)
         {
-            CBattleEntity* PTarget = (CBattleEntity*)PMob;
-            luautils::OnCriticalHit(PTarget);
+            luautils::OnCriticalHit((CBattleEntity*)PMob, (CBattleEntity*)PChar);
         }
+
         lua_pop(LuaHandle, 4);
         return std::make_tuple(dmg, tpHitsLanded, extraHitsLanded);
     }
