@@ -1,6 +1,6 @@
 ## Intent
 
-Old-Time_XI is an attempt to make a frozen-in-time copy of Darkstar, with branches for specific use cases.
+Old-Time-XI is an attempt to make a frozen-in-time copy of Darkstar, with branches for specific use cases.
 
 The first initiate is to retool it for SEs updated stock client without updates, allowing a server+client to just work out of the box".
 
